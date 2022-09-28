@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import styles from './Todo.style';
+import TodoComplate from "../../components/TodoComplate";
 
 const initialTodo = {
   title: '',
@@ -74,7 +75,7 @@ const Todo = () => {
                 >
                   <Text style={todo.isActive ? styles.todoText : [styles.todoText, { textDecorationLine: 'line-through', color: 'gray' }]}>{todo.title}</Text>
                   {todo.isActive === false
-                    ? <View style={styles.checkView}></View>
+                    ? <TodoComplate />//<View style={styles.checkView}></View>
                     : <></>
                   }
                 </TouchableOpacity>
