@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
 import styles from './Todo.style';
 import TodoComplate from "../../components/TodoComplate";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const AsyncStorageKey = 'todoList';
 
 const initialTodo = {
   title: '',
@@ -19,6 +23,32 @@ const Todo = () => {
   //   console.log(todo);
   // }, [todo]) // follow todo state
 
+  const storeData = async (value) => {
+    // console.log('LOG: ', value);
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem(AsyncStorageKey, jsonValue)
+      console.log('Ekleme Tamamlandı!');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(AsyncStorageKey)
+      console.log('GET DATA LOG: ', jsonValue);
+      setTodos(JSON.parse(jsonValue))
+      return jsonValue != null ? JSON.parse(jsonValue) : null
+    } catch (e) {
+
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+
   const addTodo = () => {
     if (todo.title === '') {
       return false
@@ -28,6 +58,7 @@ const Todo = () => {
 
   useEffect(() => {
     setTodo(initialTodo)
+    storeData(todos)
   }, [todos]) // follow todos state
 
   const todoIsComplete = (todo, i) => {
