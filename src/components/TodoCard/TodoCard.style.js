@@ -9,7 +9,7 @@ export default StyleSheet.create({
         paddingLeft: '3%',
         backgroundColor: 'white',
         marginBottom: '2%',
-        borderRadius: 15,
+        borderRadius: 10,
     },
     todoText: {
         color: 'black',

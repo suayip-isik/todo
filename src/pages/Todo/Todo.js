@@ -118,6 +118,7 @@ const Todo = () => {
         <ScrollView
           style={styles.todoListView}
           keyboardDismissMode='on-drag'
+          showsVerticalScrollIndicator={false}
         >
           {
             todos.map(
