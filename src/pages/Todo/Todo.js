@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View, ScrollView } from "react-native";
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View, ScrollView, Modal } from "react-native";
 import styles from './Todo.style';
 import TodoComplate from "../../components/TodoComplate";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomModal from "../../components/CustomModal";
+import TodoCard from "../../components/TodoCard";
 
 
 const AsyncStorageKey = 'todoList';
@@ -16,6 +18,8 @@ const Todo = () => {
 
   const [todo, setTodo] = useState(initialTodo)
   const [todos, setTodos] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const modalState = () => setModalVisible(!modalVisible);
 
   const onChangeInput = (text) => setTodo({ ...todo, title: text });
 
@@ -37,7 +41,6 @@ const Todo = () => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem(AsyncStorageKey)
-      console.log('GET DATA LOG: ', jsonValue);
       setTodos(JSON.parse(jsonValue))
       return jsonValue != null ? JSON.parse(jsonValue) : null
     } catch (e) {
@@ -54,6 +57,11 @@ const Todo = () => {
       return false
     }
     return setTodos([...todos, todo])
+  }
+
+  const deleteTodolist = () => {
+    setTodos([]);
+    storeData(todos)
   }
 
   useEffect(() => {
@@ -75,6 +83,8 @@ const Todo = () => {
   return (
     <SafeAreaView style={styles.pages}>
 
+      <CustomModal visible={modalVisible} modalState={modalState} />
+
       <View style={styles.container}>
 
         <Text style={styles.title}>todos</Text>
@@ -87,30 +97,37 @@ const Todo = () => {
             placeholder="Add todo"
             style={styles.textInput} />
 
+        </View>
+
+        <View style={styles.buttonView}>
+
           <TouchableOpacity
             onPress={addTodo}
             style={styles.addButton}>
-            <Text>Ekle</Text>
+            <Text style={styles.textStyle}>Add</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={deleteTodolist}
+            style={styles.deleteButton}>
+            <Text>Delete TodoList</Text>
           </TouchableOpacity>
 
         </View>
 
-        <ScrollView style={styles.todoListView}>
+        <ScrollView
+          style={styles.todoListView}
+          keyboardDismissMode='on-drag'
+        >
           {
             todos.map(
-              (todo, i) => (
-                <TouchableOpacity
-                  key={i}
-                  style={styles.todoViewButton}
-                  onPress={() => todoIsComplete(todo, i)}
-                >
-                  <Text style={todo.isActive ? styles.todoText : [styles.todoText, { textDecorationLine: 'line-through', color: 'gray' }]}>{todo.title}</Text>
-                  {todo.isActive === false
-                    ? <TodoComplate />//<View style={styles.checkView}></View>
-                    : <></>
-                  }
-                </TouchableOpacity>
-              )
+              (todo, i) => <TodoCard
+                onLongPress={modalState}
+                key={i}
+                onPress={() => todoIsComplete(todo, i)}
+                todoState={todo.isActive}
+                todoTitle={todo.title}
+              />
             )
           }
         </ScrollView>

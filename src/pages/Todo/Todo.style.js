@@ -16,6 +16,7 @@ export default StyleSheet.create({
     },
     container: {
         paddingHorizontal: '5%',
+        height: '100%',
         paddingTop: '5%',
     },
     inputView: {
@@ -24,9 +25,9 @@ export default StyleSheet.create({
     textInput: {
         borderWidth: 1,
         borderColor: 'rgba(108, 122, 137, 0.3)',
-        borderRadius: 10,
+        borderRadius: 16,
         paddingLeft: 20,
-        fontSize: 20,
+        fontSize: 22,
         color: 'gray', // text-color
         flex: 1
     },
@@ -34,27 +35,27 @@ export default StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'lightblue',
-        borderRadius: 10
+        backgroundColor: '#2196F3',
+        borderRadius: 14,
+        marginLeft: '3%'
     },
-    todoListView: {},
-    todoViewButton: {
-        flex: 1,
-        flexDirection: 'row',
+    deleteButton: {
+        paddingHorizontal: 15,
+        paddingVertical: 12,
+        borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 20,
-        paddingLeft: '3%',
-        backgroundColor: 'white',
-        marginTop: '2%',
-        borderRadius: 15,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(255, 100, 100, 0.4)',
     },
-    todoText: {
-        color: 'black',
-        fontSize: 20,
-        paddingLeft: '3%',
-        flex: 1,
-        // textDecorationLine: 'line-through'
+    buttonView: {
+        flexDirection: 'row',
+        marginTop: '2%',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between'
+    },
+    todoListView: {
+        marginTop: '2%',
+        height: '100%'
     },
     checkView: {
         borderWidth: 1,
@@ -63,5 +64,10 @@ export default StyleSheet.create({
         padding: 10,
         borderRadius: 20,
         marginRight: '3%'
-    }
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
 });
