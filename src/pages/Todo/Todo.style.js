@@ -6,8 +6,8 @@ export default StyleSheet.create({
         backgroundColor: '#e0e0e0',
     },
     title: {
-        color: 'rgba(255, 10, 30, 0.3)',
-        fontSize: 38,
+        color: 'black', //'rgba(255, 10, 30, 0.3)',
+        fontSize: 40,
         fontWeight: 'bold',
         alignSelf: 'center',
     },
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     container: {
         paddingHorizontal: '5%',
-        height: '100%',
+        height: '99%',
         paddingTop: '5%',
     },
     inputView: {
