@@ -2,12 +2,15 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     centeredView: {
-        flex: 1,
+        // flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        alignSelf: 'center',
-        marginTop: '60%',
-        position: 'absolute',
+        // alignSelf: 'center',
+        // marginTop: '60%',
+        // position: 'absolute',
+        // backgroundColor: 'pink',
+        width: '100%',
+        height: '100%'
     },
     modalView: {
         margin: 20,
@@ -29,11 +32,12 @@ export default StyleSheet.create({
         padding: 10,
         elevation: 2
     },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
+    buttonDelete: {
+        backgroundColor: "#E03814",
     },
     buttonClose: {
         backgroundColor: "#2196F3",
+        marginTop: '2%'
     },
     textStyle: {
         color: "white",

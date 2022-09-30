@@ -19,7 +19,11 @@ const Todo = () => {
   const [todo, setTodo] = useState(initialTodo)
   const [todos, setTodos] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
-  const modalState = () => setModalVisible(!modalVisible);
+  const [selectedTodo, setSelectedTodo] = useState()
+  const modalState = (value) => {
+    setSelectedTodo(value)
+    setModalVisible(!modalVisible)
+  };
 
   const onChangeInput = (text) => setTodo({ ...todo, title: text });
 
@@ -80,60 +84,65 @@ const Todo = () => {
     setTodos(newState);
   };
 
+  const deleteTodoCard = () => { 
+    console.log(selectedTodo) 
+  }
+
   return (
     <SafeAreaView style={styles.pages}>
 
-      <CustomModal visible={modalVisible} modalState={modalState} />
+      <CustomModal
+        visible={modalVisible}
+        modalState={modalState}
+        deleteTodoCard={deleteTodoCard}
+        cardName={selectedTodo && selectedTodo.title}
+      />
 
-      <View style={styles.container}>
+      <Text style={styles.title}>todos</Text>
 
-        <Text style={styles.title}>todos</Text>
+      <View style={styles.inputView}>
 
-        <View style={styles.inputView}>
-
-          <TextInput
-            value={todo.title}
-            onChangeText={onChangeInput}
-            placeholder="Add todo"
-            style={styles.textInput} />
-
-        </View>
-
-        <View style={styles.buttonView}>
-
-          <TouchableOpacity
-            onPress={addTodo}
-            style={styles.addButton}>
-            <Text style={styles.textStyle}>Add</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={deleteTodolist}
-            style={styles.deleteButton}>
-            <Text>Delete TodoList</Text>
-          </TouchableOpacity>
-
-        </View>
-
-        <ScrollView
-          style={styles.todoListView}
-          keyboardDismissMode='on-drag'
-          showsVerticalScrollIndicator={false}
-        >
-          {
-            todos.map(
-              (todo, i) => <TodoCard
-                onLongPress={modalState}
-                key={i}
-                onPress={() => todoIsComplete(todo, i)}
-                todoState={todo.isActive}
-                todoTitle={todo.title}
-              />
-            )
-          }
-        </ScrollView>
+        <TextInput
+          value={todo.title}
+          onChangeText={onChangeInput}
+          placeholder="Add todo"
+          style={styles.textInput} />
 
       </View>
+
+      <View style={styles.buttonView}>
+
+        <TouchableOpacity
+          onPress={addTodo}
+          style={styles.addButton}>
+          <Text style={styles.textStyle}>Add</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={deleteTodolist}
+          style={styles.deleteButton}>
+          <Text style={styles.textStyle}>Delete TodoList</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <ScrollView
+        keyboardDismissMode='on-drag'
+        showsVerticalScrollIndicator={false}
+      >
+        {todos &&
+          todos.map(
+            (todo, i) => <TodoCard
+              onLongPress={() => modalState(todo)}
+              key={i}
+              onPress={() => todoIsComplete(todo, i)}
+              todoState={todo.isActive}
+              todoTitle={todo.title}
+            />
+          )
+        }
+      </ScrollView>
+
 
     </SafeAreaView>
   )

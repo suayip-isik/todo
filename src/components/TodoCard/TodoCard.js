@@ -7,7 +7,7 @@ const TodoCard = ({ onLongPress, onPress, todoState, todoTitle }) => {
     return (
         <TouchableOpacity
             onLongPress={onLongPress}
-            delayLongPress={200}
+            delayLongPress={300}
             style={styles.todoViewButton}
             onPress={onPress}
         >

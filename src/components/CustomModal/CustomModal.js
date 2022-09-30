@@ -2,31 +2,37 @@ import React from "react";
 import { View, Modal, Text, TouchableOpacity } from "react-native";
 import styles from './CustomModal.style';
 
-const CustomModal = ({ visible, modalState }) => {
+const CustomModal = ({ visible, modalState, deleteTodoCard, cardName }) => {
     return (
-        <View style={styles.centeredView}>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={visible}
+            style={styles.centeredView}
+        >
 
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={visible}
-            >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Delete '{cardName}'</Text>
 
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Hello World!</Text>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={modalState}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                        style={[styles.button, styles.buttonDelete]}
+                        onPress={deleteTodoCard}
+                    >
+                        <Text style={styles.textStyle}>  Delete  </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={modalState}
+                    >
+                        <Text style={styles.textStyle}>  Cancel  </Text>
+                    </TouchableOpacity>
+
                 </View>
+            </View>
 
-            </Modal>
-
-        </View>
+        </Modal>
     );
 }
 
