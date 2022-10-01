@@ -36,7 +36,6 @@ const Todo = () => {
     try {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem(AsyncStorageKey, jsonValue)
-      console.log('Ekleme Tamamlandı!');
     } catch (e) {
       console.log(e);
     }
@@ -84,8 +83,17 @@ const Todo = () => {
     setTodos(newState);
   };
 
-  const deleteTodoCard = () => { 
-    console.log(selectedTodo) 
+  const deleteTodoCard = () => {
+    let newTodos = [];
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i] === selectedTodo) {
+      } else {
+        newTodos.push(todos[i]);
+      }
+    }
+    console.log(newTodos);
+    setTodos(newTodos)
+    modalState();
   }
 
   return (
