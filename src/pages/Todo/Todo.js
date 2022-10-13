@@ -44,7 +44,13 @@ const Todo = () => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem(AsyncStorageKey)
+      if (jsonValue === '' || jsonValue === undefined || jsonValue === null) {
+        console.log("test");
+        deleteTodolist();
+        return false
+      }
       setTodos(JSON.parse(jsonValue))
+      console.log(todos);
       return jsonValue != null ? JSON.parse(jsonValue) : null
     } catch (e) {
 
